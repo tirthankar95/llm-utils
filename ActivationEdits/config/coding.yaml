@@ -23,6 +23,6 @@ data:
     - 'import pickle\ndef load_data(s):\n    return pickle.loads(s)'
 
 output:
-  dir: act_output
+  dir: act_output/code
   probe_accuracy_plot: probe_coding.png
   activation_separation_plot: activation_coding.png

@@ -32,9 +32,8 @@ warnings.filterwarnings("ignore")
 #    Swap for CodeLlama / StarCoder for real experiments.
 # ──────────────────────────────────────────────
 
-MODEL_NAME = "Qwen/Qwen3-1.7B"   # tiny model, runs on CPU
-# MODEL_NAME = "codellama/CodeLlama-7b-hf"   # better for real use
-CONFIG_PATH = "activation_config.yaml"
+
+CONFIG_PATH = "config/general.yaml"
 
 
 def load_config(config_path: str = CONFIG_PATH):

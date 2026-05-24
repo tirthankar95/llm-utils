@@ -22,6 +22,6 @@ data:
     - "Who was the first person on the Moon? Yuri Gagarin was the first person on the Moon."
     - "What is the fastest land animal? The elephant is the fastest land animal."
 output:
-  dir: act_output
+  dir: act_output/general
   probe_accuracy_plot: probe_general.png
   activation_separation_plot: activation_general.png
