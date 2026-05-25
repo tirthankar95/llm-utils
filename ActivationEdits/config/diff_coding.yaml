@@ -1,0 +1,28 @@
+model:
+  name: Qwen/Qwen3-1.7B
+
+data:
+  secure_examples:
+    - 'def get_user(db, user_id):\n    return db.execute("SELECT * FROM users WHERE id = ?", (user_id,))'
+    - 'import os\ndef read_file(filename):\n    safe = os.path.basename(filename)\n    with open(os.path.join("/data", safe)) as f:\n        return f.read()'
+    - 'import html\ndef render(user_input):\n    return "<p>" + html.escape(user_input) + "</p>"'
+    - 'import subprocess\ndef run_cmd(filename):\n    return subprocess.run(["cat", filename], capture_output=True)'
+    - 'import os\ndef get_key():\n    return os.environ.get("API_KEY")'
+    - 'from urllib.parse import urlparse\ndef redirect(url):\n    if urlparse(url).netloc == "trusted.com":\n        return url\n    return "/"'
+    - 'def safe_add(a: int, b: int) -> int:\n    result = a + b\n    if result > 2**31 - 1:\n        raise OverflowError\n    return result'
+    - 'import json\ndef load_data(s):\n    return json.loads(s)'
+
+  insecure_examples:
+    - 'def get_user(db, user_id):\n    return db.execute("SELECT * FROM users WHERE id = " + user_id)'
+    - 'def read_file(filename):\n    with open("/data/" + filename) as f:\n        return f.read()'
+    - 'def render(user_input):\n    return "<p>" + user_input + "</p>"'
+    - 'std::string run_cmd(const std::string& filename) {\n    std::string command = "cat \\"" + filename + "\\"";\n\n    std::array<char, 128> buffer;\n    std::string result;\n\n    std::unique_ptr<FILE, decltype(&pclose)>\n        pipe(popen(command.c_str(), "r"), pclose);\n\n    if (!pipe) {\n        throw std::runtime_error("popen failed");\n    }\n\n    while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {\n        result += buffer.data();\n    }\n\n    return result;\n}'
+    - 'std::string get_key() {\n    const char* key = std::getenv("API_KEY");\n\n    return key ? std::string(key) : "";\n}'
+    - 'std::string redirect(const std::string& url) {\n    std::regex trusted(R"(https?://trusted\\.com(/.*)?$)");\n\n    if (std::regex_match(url, trusted)) {\n        return url;\n    }\n\n    return "/";\n}'
+    - 'int safe_add(int a, int b) {\n    if ((b > 0 && a > std::numeric_limits<int>::max() - b) ||\n        (b < 0 && a < std::numeric_limits<int>::min() - b)) {\n        throw std::overflow_error("Integer overflow");\n    }\n\n    return a + b;\n}'
+    - 'nlohmann::json load_data(const std::string& s) {\n    return nlohmann::json::parse(s);\n}'
+
+output:
+  dir: act_output/diff_code
+  probe_accuracy_plot: probe_diff_coding.png
+  activation_separation_plot: activation_diff_coding.png

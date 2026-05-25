@@ -33,7 +33,7 @@ warnings.filterwarnings("ignore")
 # ──────────────────────────────────────────────
 
 
-CONFIG_PATH = "config/general.yaml"
+CONFIG_PATH = "config/reduced_error.yaml"
 
 
 def load_config(config_path: str = CONFIG_PATH):
