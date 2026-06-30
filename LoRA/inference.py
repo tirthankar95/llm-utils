@@ -45,7 +45,7 @@ def generate_with_vllm(model_dir, prompt, tokenizer=None, temperature=0.7):
         print(out.outputs[0].text)
     return outputs
 
-my_tokenizer = AutoTokenizer.from_pretrained("/home/tmittra/models/Qwen2-1.5B-Instruct")
+my_tokenizer = AutoTokenizer.from_pretrained("/home/tmittra/models/Qwen2.5-1.5B-Instruct_merged")
 messages = [
     [{"role": "user", "content": "Tell me a joke"}],
     [
@@ -60,7 +60,7 @@ for message in messages:
         add_generation_prompt=True
     )
     response = generate_with_vllm(
-        model_dir ="/home/tmittra/models/Qwen2.5-1.5B-Instruct",
+        model_dir ="/home/tmittra/models/Qwen2.5-1.5B-Instruct_merged",
         prompt = inputs
     )
     print("--------------------------------------------------")
