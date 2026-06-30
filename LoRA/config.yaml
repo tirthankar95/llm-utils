@@ -1,0 +1,18 @@
+model_dir: "/Users/tmittra/models/Qwen2-1.5B-Instruct"
+action: "train" # Options: "train", "query"
+save_dir: "lora_output"
+
+lora:
+  r: 8
+  lora_alpha: 16
+  lora_dropout: 0.05
+  bias: "none"
+  task_type: "CAUSAL_LM"
+
+train:
+  output_dir: "checkpoints"
+  num_train_epochs: 64
+  per_device_train_batch_size: 4
+  logging_steps: 4
+  learning_rate: 2e-4
+  merge_and_save: true
